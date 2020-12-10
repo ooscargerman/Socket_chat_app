@@ -1,2 +1,2 @@
 # Socket_chat_app
-Made with ❤ by: Oscar &amp; DEV_Node
+Made with ❤ by: OscarG
