@@ -1,2 +1,2 @@
 # Socket_chat_app
-Chat in real time with socket io. NodeJS
+Made with ❤ by: Oscar &amp; DEV_Node

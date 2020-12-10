@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chat App</title>
+  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+  <script defer src="script.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+  @import url("http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");
+
+.detailBox {
+    width:320px;
+    border:1px solid #bbb;
+    margin:50px;
+    position: absolute;
+    z-index: 9;
+}
+.detailBoxSmall {
+    width:46px;
+    border:1px solid #bbb;
+    margin:50px;
+    position: absolute;
+    z-index: 9;
+}
+.system{
+  color:#ffba17;
+}
+
+.mini {
+ float:right;
+ font-size:21px;
+ font-weight:700;
+ line-height:1;
+ color:#000;
+ text-shadow:0 1px 0 #fff;
+ opacity:1.7;
+ filter:alpha(opacity=20)
+}
+.titleBox {
+    background-color:black;
+    padding:10px;
+    cursor: move;
+    z-index: 10;
+
+
+}
+
+.titleBox label{
+  color: #FFFFFF;
+  margin:0;
+  display:inline-block;
+
+}
+
+.commentBox {
+    padding:10px;
+    border-top:1px dotted #bbb;
+     background: black;
+}
+.commentBox .form-group:first-child, .actionBox .form-group:first-child {
+    width:100%;
+    background: black;
+}
+.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+    width:18%;
+}
+.actionBox .form-group * {
+    width:100%;
+    color: white;
+     background: black;
+}
+.taskDescription {
+    margin-top:10px 0;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.commentList {
+    padding:0;
+    list-style:none;
+    max-height:200px;
+    overflow:auto;
+
+}
+.commentList li {
+    margin:0;
+    margin-top:10px;
+}
+.commentList li > div {
+    display:table-cell;
+}
+.commenterImage {
+    width:30px;
+    margin-right:5px;
+    height:100%;
+    float:left;
+}
+.offline{
+  color:red;
+}
+.commenterImage img {
+    width:100%;
+    border-radius:50%;
+}
+.commentText p {
+    margin:0;
+
+}
+.sub-text {
+    color:#aaa;
+    font-family:verdana;
+    font-size:11px;
+}
+.actionBox {
+    border-top:1px dotted #bbb;
+    padding:10px;
+     background: black;
+}
+  </style>
+</head>
+<body>
+<div id="detailBoxSmall" class="detailBoxSmall" style="left: -44px; top: -48px;">
+    <div id="titleBox2" class="titleBox">
+      <label><img src="https://i.imgur.com/KOhzEeh.png"></label>
+        
+    </div>
+</div>
+<div id="draggable_test" style="font-size: smaller;">
+  <div id="chatbox" class="detailBox">
+    <div id="titleBox" class="titleBox">
+      <label><img src="https://i.imgur.com/KOhzEeh.png"> Chat</label>
+        <div id="mini" onclick="" class="mini">-</div>
+    </div>
+  
+    <div id ="actionbox" class="actionBox">
+        <ul id="chat" class="commentList">
+            
+            <li>
+               <div id="offline" class="offline ">CHAT OFFLINE.</div>
+                <div id="message-container" class="commentText">
+                    
+
+                </div>
+            </li>
+        </ul>
+        <form autocomplete="disable" id="send-container" class="form-inline" role="form">
+            <div class="form-group">
+                <input autocomplete="disable" maxlength='46' class="form-control" type="text"  id="message-input" placeholder="Chat Here" />
+            </div>
+            
+        </form>
+    </div>
+</div>
+</div>
+  
+<script type="text/javascript">
+$(document).ready(function () {
+  $("#message-input").attr("autocomplete", "off"); //disable input level 
+});
+
+
+   $('#detailBoxSmall').click(function() {
+      $('.detailBox').toggle("slide");
+      $('.detailBoxSmall').toggle("slide");
+    });
+   $('#mini').click(function() {
+      $('.detailBox').toggle("slide");
+      $('.detailBoxSmall').toggle("slide");
+    });
+$( function() {
+  $('.detailBoxSmall').toggle("slide");
+  } );
+
+window.onload = addListeners();
+
+function addListeners(){
+    document.getElementById('titleBox').addEventListener('mousedown', mouseDown, false);
+    window.addEventListener('mouseup', mouseUp, false);
+
+}
+
+function mouseUp()
+{
+    window.removeEventListener('mousemove', divMove, true);
+}
+
+function mouseDown(e){
+  window.addEventListener('mousemove', divMove, true);
+}
+
+function divMove(e){
+    var div = document.getElementById('draggable_test');
+  div.style.position = 'absolute';
+  div.style.top = e.clientY-50 + 'px';
+  div.style.left = e.clientX-200 + 'px';
+}
+</script>
+
+
+
+  
+</body>
+</html>
